@@ -1,0 +1,34 @@
+name: Build and push Docker image
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  IMAGE_NAME: ghcr.io/resourcely-inc/resourcely-cli:latest
+
+permissions: write-all
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GH_ACCESS_TOKEN }}
+        repository: Resourcely-Inc/resourcely-cli
+        ref: main
+        path: resourcely-cli
+
+    - name: Build Docker image
+      run: |
+        docker build -t $IMAGE_NAME resourcely-cli
+        docker images # for debugging purposes
+
+    - name: Login to Github Container Registry
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Push Docker Image to Github Container Registry
+      run: docker push $IMAGE_NAME
