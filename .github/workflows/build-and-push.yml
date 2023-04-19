@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  IMAGE_NAME: ghcr.io/resourcely-inc/resourcely-cli:latest
+  IMAGE_NAME: ghcr.io/resourcely-inc/resourcely-cli:0.0.1
 
 permissions: write-all
 
