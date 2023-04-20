@@ -3,6 +3,7 @@ name: Build and push Docker images
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 env:
   IMAGE_NAME_CLI: ghcr.io/resourcely-inc/resourcely-cli:latest
