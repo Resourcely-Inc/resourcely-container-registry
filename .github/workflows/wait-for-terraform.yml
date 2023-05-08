@@ -1,4 +1,4 @@
-name: Build and push Docker images
+name: Build and push Docker wait-for-terraform-plan image
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME_CLI: ghcr.io/resourcely-inc/resourcely-cli:latest
   IMAGE_NAME_TF_PLAN: ghcr.io/resourcely-inc/wait-for-terraform-plan:latest
 
 permissions: write-all
@@ -16,20 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Build and push resourcely-cli
-    - name: Checkout resourcely-cli code
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GH_ACCESS_TOKEN }}
-        repository: Resourcely-Inc/resourcely-cli
-        ref: main
-        path: resourcely-cli
-
-    - name: Build resourcely-cli Docker image
-      run: |
-        docker build -t $IMAGE_NAME_CLI resourcely-cli
-        docker images # for debugging purposes
-
     # Build and push wait-for-terraform-plan
     - name: Checkout wait-for-terraform-plan code
       uses: actions/checkout@v2
@@ -47,9 +32,6 @@ jobs:
     # Login and push both images
     - name: Login to Github Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-    - name: Push resourcely-cli Docker Image to Github Container Registry
-      run: docker push $IMAGE_NAME_CLI
 
     - name: Push wait-for-terraform-plan Docker Image to Github Container Registry
       run: docker push $IMAGE_NAME_TF_PLAN
