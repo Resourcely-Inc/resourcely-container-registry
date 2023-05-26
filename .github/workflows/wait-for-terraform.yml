@@ -1,8 +1,8 @@
 name: Build and push Docker wait-for-terraform-plan image
 
 on:
-  push:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
   workflow_dispatch:
     inputs:
       tag:
