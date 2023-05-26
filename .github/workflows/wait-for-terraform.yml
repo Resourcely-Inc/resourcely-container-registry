@@ -1,12 +1,20 @@
 name: Build and push Docker wait-for-terraform-plan image
 
 on:
-  push:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
   workflow_dispatch:
-
+    inputs:
+      tag:
+        description: 'Docker image tag (default is: latest)'
+        required: true
+        default: 'latest'
+        type: choice
+        options:
+          - latest
+          - dev
 env:
-  IMAGE_NAME_TF_PLAN: ghcr.io/resourcely-inc/wait-for-terraform-plan:latest
+  IMAGE_NAME_TF_PLAN: ghcr.io/resourcely-inc/wait-for-terraform-plan:${{ inputs.tag }}
 
 permissions: write-all
 

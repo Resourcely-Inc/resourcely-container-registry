@@ -1,12 +1,20 @@
 name: Build and push resourcely-cli Docker image
 
 on:
-  push:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
   workflow_dispatch:
-
+    inputs:
+      tag:
+        description: 'Docker image tag (default is: latest)'
+        required: true
+        default: 'latest'
+        type: choice
+        options:
+          - latest
+          - dev
 env:
-  IMAGE_NAME_CLI: ghcr.io/resourcely-inc/resourcely-cli:latest
+  IMAGE_NAME_CLI: ghcr.io/resourcely-inc/resourcely-cli:${{ inputs.tag }}
 
 permissions: write-all
 
