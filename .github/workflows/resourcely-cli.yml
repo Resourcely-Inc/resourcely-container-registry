@@ -34,7 +34,7 @@ jobs:
 
     - name: Build resourcely-cli Docker image
       run: |
-        docker build -t $IMAGE_NAME_CLI resourcely-cli
+        docker build -t $IMAGE_NAME_CLI --build-arg="GH_ACCESS_TOKEN=${{ secrets.GH_ACCESS_TOKEN }}" resourcely-cli
         docker images # for debugging purposes
 
     # Login and push resourcely-cli image

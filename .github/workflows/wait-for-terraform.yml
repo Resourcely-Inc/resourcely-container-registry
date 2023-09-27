@@ -34,7 +34,7 @@ jobs:
 
     - name: Build wait-for-terraform-plan Docker image
       run: |
-        docker build -t $IMAGE_NAME_TF_PLAN wait-for-terraform-plan
+        docker build -t $IMAGE_NAME_TF_PLAN --build-arg="GH_ACCESS_TOKEN=${{ secrets.GH_ACCESS_TOKEN }}" wait-for-terraform-plan
         docker images # for debugging purposes
 
     # Login and push both images
