@@ -5,6 +5,11 @@ on:
 #    branches: [ main ]
   workflow_dispatch:
     inputs:
+      sha:
+        description: 'SHA or branch to deploy'
+        required: true
+        type: string
+        default: 'main'
       tag:
         description: 'Docker image tag (default is: latest)'
         required: true
@@ -29,7 +34,7 @@ jobs:
       with:
         token: ${{ secrets.GH_ACCESS_TOKEN }}
         repository: Resourcely-Inc/wait-for-terraform-plan
-        ref: main
+        ref: ${{ inputs.sha }}
         path: wait-for-terraform-plan
 
     - name: Build wait-for-terraform-plan Docker image
