@@ -49,3 +49,17 @@ jobs:
     - name: Push resourcely-cli Docker Image to Github Container Registry
       run: docker push $IMAGE_NAME_CLI
 
+    # Generate Binaries
+    - name: Generate Binaries
+      run: |
+        export VERSION=v0.0.2
+        env GOOS=darwin GOARCH=arm64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+        env GOOS=darwin GOARCH=amd64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+        env GOOS=linux GOARCH=arm64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+        env GOOS=linux GOARCH=amd64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+    - name: Upload Binaries
+      uses: skx/github-action-publish-binaries@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: 'resourcely-cli-*'
