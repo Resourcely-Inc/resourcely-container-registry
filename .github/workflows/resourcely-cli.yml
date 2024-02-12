@@ -66,11 +66,12 @@ jobs:
     # Generate Binaries
     - name: Generate Binaries
       run: |
+        cd resourcely-cli
         export VERSION=v0.0.2
-        env GOOS=darwin GOARCH=arm64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION resourcely-cli/main.go
-        env GOOS=darwin GOARCH=amd64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION resourcely-cli/main.go
-        env GOOS=linux GOARCH=arm64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION resourcely-cli/main.go
-        env GOOS=linux GOARCH=amd64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION resourcely-cli/main.go
+        env GOOS=darwin GOARCH=arm64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+        env GOOS=darwin GOARCH=amd64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+        env GOOS=linux GOARCH=arm64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
+        env GOOS=linux GOARCH=amd64 go build -o resourcely-cli-$GOOS-$GOARCH-$VERSION main.go
     - name: Upload Binaries
       uses: skx/github-action-publish-binaries@master
       env:
