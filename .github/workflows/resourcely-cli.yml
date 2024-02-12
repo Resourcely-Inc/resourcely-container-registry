@@ -49,9 +49,16 @@ jobs:
     - name: Push resourcely-cli Docker Image to Github Container Registry
       run: docker push $IMAGE_NAME_CLI
     
-    # Get dependencies
+    # Set up Go and Get dependencies
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.17'
+
     - name: Get dependencies
-      run: go get -v -t -d ./...
+      run: |
+        cd resourcely-cli
+        go mod tidy
 
     # Generate Binaries
     - name: Generate Binaries
