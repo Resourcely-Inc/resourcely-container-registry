@@ -49,19 +49,19 @@ jobs:
     - name: Push resourcely-cli Docker Image to Github Container Registry
       run: docker push $IMAGE_NAME_CLI
     
-    # Set up Go and Get dependencies
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.18'
+    # # Set up Go and Get dependencies
+    # - name: Set up Go
+    #   uses: actions/setup-go@v2
+    #   with:
+    #     go-version: '1.18'
 
-    - name: Get dependencies
-      env:
-        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      run: |
-        git config --global url."https://${GH_ACCESS_TOKEN}@github.com/".insteadOf "https://github.com/"
-        cd resourcely-cli
-        go mod tidy
+    # - name: Get dependencies
+    #   env:
+    #     GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+    #   run: |
+    #     git config --global url."https://${GH_ACCESS_TOKEN}@github.com/".insteadOf "https://github.com/"
+    #     cd resourcely-cli
+    #     go mod tidy
 
     # Generate Binaries
     - name: Generate Binaries
